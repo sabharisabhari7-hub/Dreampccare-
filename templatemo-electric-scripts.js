@@ -112,14 +112,25 @@ https://templatemo.com/tm-596-electric-xtra
                 document.getElementById(tabId).classList.add('active');
             });
         });
-
-        // Form submission
+// Form submission to Google Forms
         document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Add your form submission logic here
-            alert('Message sent! We\'ll get back to you soon.');
-            this.reset();
-        });
+    e.preventDefault();
+
+    // Build FormData object with user input
+    const formData = new FormData(this);
+
+    // Send data to Google Form (Replace with your actual Google Form URL)
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLSdajrCr4JErYNr1OdIP3RHHsuift0dXm5U_Dwg-UIS9NGba9A/viewform?embedded=true", {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+    }).then(() => {
+        alert("✅ Message Sent! We'll get back to you soon.");
+        this.reset();
+    }).catch(() => {
+        alert("❌ Something went wrong. Please try again later.");
+    });
+});
 
         // Initialize particles
         createParticles();
